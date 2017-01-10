@@ -1,13 +1,37 @@
 extends _shared
 
 block body
-	.services
-		h2 Services we provide
+    .services.container
+        h3 Services we provide
+        .row
+            .panel.panel-primary.filterable
+                .panel-heading
+                    .pull-right
+                    .btn-group.show-on-hover
+                        button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+                            | Filter By Type &nbsp;
+                            span.caret
+                        ul.dropdown-menu(role='menu')
+                            for sorts,key in sort_options
+                                li
+                                    a(href='/services?action=sort&sortby=#{sorts["sortValue"]}')= sorts["sortLabel"]
 
-		//- Implement filtering here
-
-		for service in services
-			h4= service.job
-			p= service.cost
-			p= service.type
+                table.table
+                    thead
+                        tr.filters
+                            th
+                                input.form-control(type='text', placeholder='#', disabled='')
+                            th
+                                input.form-control(type='text', placeholder='Job', disabled='')
+                            th
+                                input.form-control(type='text', placeholder='Cost', disabled='')
+                            th
+                                input.form-control(type='text', placeholder='Type', disabled='')
+                    tbody
+                        for service,index in services
+                            tr
+                                td= index
+                                td= service.job
+                                td= service.cost
+                                td= service.type
 

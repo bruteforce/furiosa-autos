@@ -1,12 +1,27 @@
 extends _shared
 
 block body
-	.reviews
-		h2 Customer reviews
+	.reviews.container
+		.row
+		.span12
+			form#custom-search-form.form-search.form-horizontal.pull-right(action='/reviews?action=search', method='get')
+				.input-append.span12
+					input.search-query(type='text',name="keyword", placeholder='Search Reviews')
+					button.btn(type='submit')
+						i.glyphicon.glyphicon-search
 
-		//- Implement search here
 
-		for review in reviews
-			blockquote
-				p= review.content
-				footer= review.source
+			h2 Customer reviews
+			br
+			br
+
+			//- Implement search here
+			if searchKeyword !== ''
+				h4 Showing results for keyword:
+					span(style='font-weight:bold') #{searchKeyword}
+
+			for review in reviews
+				blockquote
+					p= review.content
+					footer= review.source
+
